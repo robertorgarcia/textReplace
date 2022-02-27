@@ -74,6 +74,7 @@ resource "aws_s3_object" "backend_upload" {
   bucket = aws_s3_bucket.backend_bucket.bucket
   key    = "backend.zip"
   source = data.archive_file.backend_source.output_path
+  etag = filebase64sha256(data.archive_file.backend_source.output_path)
 }
 
 resource "aws_lambda_function" "backend" {
