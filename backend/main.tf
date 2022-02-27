@@ -10,42 +10,46 @@ resource "aws_lambda_permission" "api-gateway-invoke-lambda" {
 
 resource "aws_iam_role" "iam_for_lambda" {
   name = "iam_for_backend"
-
-  assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "Principal": {
-          "Service": "lambda.amazonaws.com"
-        },
-        "Effect": "Allow",
-        "Sid": ""
-      }
-    ]
-  }
-  EOF
+  assume_role_policy =<<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
 }
 
-resource "aws_iam_role" "lambda_role" {
-  name = "role_for_backend"
-  assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        "Resource": "*",
-        "Effect": "Allow"
-      }
-    ]
-  }
-  EOF
+resource "aws_iam_policy" "lambda_policy" {
+  name = "policy_for_backend"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
+ role        = aws_iam_role.iam_for_lambda.name
+ policy_arn  = aws_iam_policy.lambda_policy.arn
 }
 
 data "archive_file" "backend_source" {

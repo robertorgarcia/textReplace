@@ -12,26 +12,33 @@ components:
       properties:
         message:
           type: string
+    inputtext:
+      type: object
+      required: [
+        textbody
+      ]
+      properties:
+        textbody:
+          type: string
+        
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       name: x-api-key
       in: header
 paths:
-  /hello/{name}:
-    get:
-      operationId: sayHello
-      description: say hello
+  /synctransform:
+    post:
+      operationId: synctransform
+      description: transform the text in body synchronously
       security:
         - ApiKeyAuth: []
 
-      parameters:
-        - name: name
-          in: path
-          required: true
-          description: name of the individual to say hello to
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/inputtext"
       x-amazon-apigateway-integration:
         uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
         passthroughBehavior: "when_no_match"
