@@ -11,3 +11,6 @@ provider "aws" {
   region  = "eu-central-1"
 }
 
+module "api_gateway"{
+  source = "./apiGateway"
+}
