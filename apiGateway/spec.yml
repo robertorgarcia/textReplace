@@ -36,15 +36,14 @@ paths:
           schema:
             type: string
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:${aws_region}:lambda:path/2015-03-31/functions/${get_lambda_arn}/invocations"
+        uri: ${lambda_arn}
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
-        timeoutInMillis: ${lambda_identity_timeout}
+        timeoutInMillis: 60000
         type: "aws_proxy"
         contentHandling: "CONVERT_TO_TEXT"
       x-amazon-apigateway-auth:
         type: "NONE"
-      x-amazon-apigateway-api-key-source: "HEADER"
 
       responses:
         "200":

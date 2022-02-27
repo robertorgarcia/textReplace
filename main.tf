@@ -11,6 +11,13 @@ provider "aws" {
   region  = "eu-central-1"
 }
 
+
+
+module "backend"{
+  source = "./backend"
+}
+
 module "api_gateway"{
   source = "./apiGateway"
+  lambda_arn = module.backend.lambda_arn
 }
