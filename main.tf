@@ -19,5 +19,6 @@ module "backend"{
 
 module "api_gateway"{
   source = "./apiGateway"
+  lambda_invoke_arn = module.backend.lambda_invoke_arn
   lambda_arn = module.backend.lambda_arn
 }

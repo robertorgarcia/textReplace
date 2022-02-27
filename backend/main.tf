@@ -9,28 +9,48 @@ resource "aws_lambda_permission" "api-gateway-invoke-lambda" {
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+  name = "iam_for_backend"
 
   assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
+      }
+    ]
+  }
+  EOF
 }
-EOF
+
+resource "aws_iam_role" "lambda_role" {
+  name = "role_for_backend"
+  assume_role_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": "*",
+        "Effect": "Allow"
+      }
+    ]
+  }
+  EOF
 }
 
 data "archive_file" "backend_source" {
   type        = "zip"
-  source_file  = "./backendCodeBase/main.py"
+  source_file = "./backendCodeBase/main.py"
   output_path = "./backendCodeBase/backend.zip"
 }
 
@@ -59,7 +79,7 @@ resource "aws_lambda_function" "backend" {
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "main.lambda_handler"
 
-  source_code_hash = filebase64sha256("${data.archive_file.backend_source.output_path}")
+  source_code_hash = filebase64sha256(data.archive_file.backend_source.output_path)
 
   runtime = "python3.9"
 }

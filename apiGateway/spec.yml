@@ -4,9 +4,6 @@ info:
   title: Helloworld API
   description: API defining the operations available in the Helloworld API
   version: 0.1.0
-servers:
-  - url: "https://helloapi.apptocracy.com/v1"
-    description: Production API endpoint for the Hello World API
 
 components:
   schemas:
@@ -36,10 +33,10 @@ paths:
           schema:
             type: string
       x-amazon-apigateway-integration:
-        uri: ${lambda_arn}
+        uri: "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/${lambda_arn}/invocations"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
-        timeoutInMillis: 60000
+        timeoutInMillis: 20000
         type: "aws_proxy"
         contentHandling: "CONVERT_TO_TEXT"
       x-amazon-apigateway-auth:
