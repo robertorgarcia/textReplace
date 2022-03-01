@@ -1,10 +1,12 @@
 # textReplace
-## Introduction
 
 ## Solution
 What follows is a detailed description of the components of the solution and how they work together.
-The files, when deployed with Terraform, will generate an architecture as seen in the diagram. These components expose a REST API, which can then be used to perform the text replacement.
+
+The repository contains Terraform code, an Infrastructure as Code (IaC) tool which can be used to define the instances and configurations of cloud components. It takes a modular structure (which is defined below in _File Structure_) to define AWS components and their configurations. As it's an IaC deployment, the lifecycle of the entire solution is controlled through code, its' deployment, updates and destruction is controlled through Terraform. When deployed, these components expose a REST API, which can then be used to perform the text replacement.
+
 The API exposes a single resource as POST /synctransform, which takes a json message with the string to be processed (the structure of the message can be seen below), and a synchronous response will include the text with the replacements performed.
+The replacements performed are: 'Oracle' to 'Oracle©', 'Google' to 'Google©', 'Microsoft' to 'Microsoft©', 'Amazon' to 'Amazon©', 'Deloitte' to 'Deloitte©'
 
 ### File Structure
 ```
