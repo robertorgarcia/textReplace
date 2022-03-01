@@ -10,16 +10,18 @@ The replacements performed are: 'Oracle' to 'Oracle©', 'Google' to 'Google©', 
 
 ### File Structure
 ```
-├── apiGateway        -> API gateway module definition
-│   ├── spec.yml      -> Contains the OpenAPI specification for the API gateway
-│   ├── main.tf       -> Terraform file containing resource definitions for the gateway
-│   ├── variables.tf  -> variables file to integrate with lambda function
-├── backend           -> Lambda function module definition
-│   ├── main.tf       -> Terraform file containing resource definitions for the function
-│   ├── outputs.tf    -> Output file for integration with gateway
-├── backendCodeBase   -> Codebase folder
-│   ├── main.py       -> Main python codefile for text replacement logic
-├── main.tf           -> Main terraform file
+├── apiGateway                                          -> API gateway module definition
+│   ├── spec.yml                                        -> Contains the OpenAPI specification for the API gateway
+│   ├── main.tf                                         -> Terraform file containing resource definitions for the gateway
+│   ├── variables.tf                                    -> variables file to integrate with lambda function
+├── backend                                             -> Lambda function module definition
+│   ├── main.tf                                         -> Terraform file containing resource definitions for the function
+│   ├── outputs.tf                                      -> Output file for integration with gateway
+├── backendCodeBase                                     -> Codebase folder
+│   ├── main.py                                         -> Main python codefile for text replacement logic
+├── postmanTesting                                      -> Codebase folder
+│   ├── textReplaceAPI-prod-swagger-postman.yaml        -> Main python codefile for text replacement logic
+├── main.tf                                             -> Main terraform file
 └── .gitignore
 ```
 The solution is divided in modules, one for the Gateway definition and deployment, a second for the Lambda function which will perform the replacement. A third folder will host the code for the lambda component.
@@ -29,15 +31,23 @@ These are all tied together and deployed through the main.tf file.
 
 ### API Info
 the API has been pre-deployed to: https://3p6i38iye6.execute-api.eu-central-1.amazonaws.com/prod/synctransform
-The request must follow the defined schema:
+When testing please remember to [Sign the request](https://docs.aws.amazon.com/apigateway/api-reference/signing-requests/). For testing purposes you may also find a Postman project file [here](postmanTesting\textReplaceAPI-prod-swagger-postman.yaml)
+
+The request's body must follow the defined schema:
 ```
 {
   "textbody": "string"
 }
 ```
-While the response will come as:
+While the response body will follow:
 ```
 {
   "message": "string"
+}
+```
+If, for example, the request body does not follow the provided schema the response will be:
+```
+{
+  "message": "Internal server error"
 }
 ```
