@@ -1,0 +1,42 @@
+---
+swagger: "2.0"
+info:
+  description: "API to perform text replacements"
+  version: "0.1.0"
+  title: "textReplaceAPI"
+host: "3p6i38iye6.execute-api.eu-central-1.amazonaws.com"
+basePath: "/prod"
+schemes:
+- "https"
+paths:
+  /synctransform:
+    post:
+      operationId: "synctransform"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "inputtext"
+        required: true
+        schema:
+          $ref: "#/definitions/inputtext"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Message"
+definitions:
+  Message:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  inputtext:
+    type: "object"
+    required:
+    - "textbody"
+    properties:
+      textbody:
+        type: "string"
