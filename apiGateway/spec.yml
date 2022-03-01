@@ -1,8 +1,8 @@
 openapi: 3.0.3
 
 info:
-  title: Helloworld API
-  description: API defining the operations available in the Helloworld API
+  title: textReplace API
+  description: API defining the operations available in the textReplace API
   version: 0.1.0
 
 components:
@@ -20,12 +20,6 @@ components:
       properties:
         textbody:
           type: string
-        
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      name: x-api-key
-      in: header
 paths:
   /synctransform:
     post:
@@ -45,7 +39,7 @@ paths:
         contentHandling: "CONVERT_TO_TEXT"
       x-amazon-apigateway-auth:
         type: "NONE"
-
+      
       responses:
         "200":
           description: OK
@@ -53,5 +47,3 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Message"
-security:
-  - ApiKeyAuth: []
