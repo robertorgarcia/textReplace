@@ -31,9 +31,6 @@ paths:
     post:
       operationId: synctransform
       description: transform the text in body synchronously
-      security:
-        - ApiKeyAuth: []
-
       requestBody:
         content:
           application/json:
