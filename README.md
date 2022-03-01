@@ -10,18 +10,18 @@ The replacements performed are: 'Oracle' to 'Oracle©', 'Google' to 'Google©', 
 
 ### File Structure
 ```
-├── apiGateway                                          -> API gateway module definition
-│   ├── spec.yml                                        -> Contains the OpenAPI specification for the API gateway
-│   ├── main.tf                                         -> Terraform file containing resource definitions for the gateway
-│   ├── variables.tf                                    -> variables file to integrate with lambda function
-├── backend                                             -> Lambda function module definition
-│   ├── main.tf                                         -> Terraform file containing resource definitions for the function
-│   ├── outputs.tf                                      -> Output file for integration with gateway
-├── backendCodeBase                                     -> Codebase folder
-│   ├── main.py                                         -> Main python codefile for text replacement logic
-├── postmanTesting                                      -> Codebase folder
-│   ├── textReplaceAPI-prod-swagger-postman.yaml        -> Main python codefile for text replacement logic
-├── main.tf                                             -> Main terraform file
+├── apiGateway                             -> API gateway module definition
+│   ├── spec.yml                           -> Contains the OpenAPI specification for the API gateway
+│   ├── main.tf                            -> Terraform file containing resource definitions for the gateway
+│   ├── variables.tf                       -> variables file to integrate with lambda function
+├── backend                                -> Lambda function module definition
+│   ├── main.tf                            -> Terraform file containing resource definitions for the function
+│   ├── outputs.tf                         -> Output file for integration with gateway
+├── backendCodeBase                        -> Codebase folder
+│   ├── main.py                            -> Main python codefile for text replacement logic
+├── postmanTesting                         -> Codebase folder
+│   ├── textReplaceAPI-postman.yaml        -> Main python codefile for text replacement logic
+├── main.tf                                -> Main terraform file
 └── .gitignore
 ```
 The solution is divided in modules, one for the Gateway definition and deployment, a second for the Lambda function which will perform the replacement. A third folder will host the code for the lambda component.
