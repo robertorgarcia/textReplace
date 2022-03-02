@@ -19,8 +19,8 @@ The replacements performed are: 'Oracle' to 'Oracle©', 'Google' to 'Google©', 
 │   ├── outputs.tf                         -> Output file for integration with gateway
 ├── backendCodeBase                        -> Codebase folder
 │   ├── main.py                            -> Main python codefile for text replacement logic
-├── postmanTesting                         -> Codebase folder
-│   ├── textReplaceAPI-postman.yaml        -> Main python codefile for text replacement logic
+├── postmanTesting                         -> Test information folder
+│   ├── textReplaceAPI-postman.yaml        -> Postman export file
 ├── main.tf                                -> Main terraform file
 └── .gitignore
 ```
