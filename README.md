@@ -27,7 +27,8 @@ The replacements performed are: 'Oracle' to 'Oracle©', 'Google' to 'Google©', 
 The solution is divided in modules, one for the Gateway definition and deployment, a second for the Lambda function which will perform the replacement. A third folder will host the code for the lambda component.
 These are all tied together and deployed through the main.tf file.
 ### Architecture
-![Untitled Diagram (1)](https://user-images.githubusercontent.com/16083769/155941353-95b52c25-aa47-40b3-8f45-f0519b92d11c.jpg)
+![Untitled Diagram (2)](https://user-images.githubusercontent.com/16083769/156409271-d6b9dc39-4fd6-4aa0-8232-05ae1de90692.jpg)
+
 
 ### API Info
 the API has been pre-deployed to: https://3p6i38iye6.execute-api.eu-central-1.amazonaws.com/prod/synctransform
